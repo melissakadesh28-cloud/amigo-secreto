@@ -3,69 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amigo Secreto</title>
-
-  <!-- Fuentes -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Merriweather&display=swap" rel="stylesheet" />
-
-  <!-- Estilos -->
-  <style>
-    :root {
-      --color-tertiary: #F0F0F0;
-      --color-text: #333;
-      --color-white: #fff;
-      --color-button: #007BFF;
-      --color-button-hover: #0056b3;
-    }
-
-    body {
-      margin: 0;
-      padding: 40px;
-      font-family: "Merriweather", serif;
-      background-color: #fafafa;
-      color: var(--color-text);
-    }
-
-    /* Tu CSS pegado aquí */
-    /* ... (todo el CSS que ya compartiste) ... */
-  </style>
+  <title>Amigo Secreto 🎁</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="hero">
+    <img src="assets/gift-illustration.png" alt="Regalo" class="hero-img" />
+    <h1>Amigo Secreto</h1>
+  </header>
 
-  <h1 style="text-align: center;">Sorteo de Amigo Secreto 🎁</h1>
+  <main class="container">
+    <label for="nombre">Digite el nombre de sus amigos</label>
+    <input type="text" id="nombre" placeholder="Escribe un nombre" />
+    <button class="button-add">Añadir</button>
 
-  <!-- Botón para agregar nombres -->
-  <button class="button-add">Agregar nombre</button>
+    <ul id="name-list"></ul>
 
-  <!-- Lista de nombres -->
-  <ul id="name-list">
-    <li>Melissa</li>
-    <li>Juan</li>
-    <li>Carla</li>
-  </ul>
+    <button class="button-draw">
+      Sortear amigo
+    </button>
 
-  <!-- Botón para sortear -->
-  <button class="button-draw">
-    <img src="assets/img/play_circle_outline.png" alt="Icono de sorteo" width="24" height="24" />
-    Sortear amigo
-  </button>
+    <div id="result" class="result-list"></div>
+  </main>
 
-  <!-- Resultado del sorteo -->
-  <div class="result-list" id="result">
-    <!-- Resultado aparecerá aquí -->
-  </div>
-
-  <!-- Script opcional -->
-  <script>
-    const drawButton = document.querySelector('.button-draw');
-    const resultDiv = document.getElementById('result');
-    const names = ['Melissa', 'Juan', 'Carla'];
-
-    drawButton.addEventListener('click', () => {
-      const randomName = names[Math.floor(Math.random() * names.length)];
-      resultDiv.textContent = 🎉 Tu amigo secreto es: ${randomName};
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
