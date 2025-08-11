@@ -3,29 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amigo Secreto 🎁</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Amigo Secreto</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 2rem 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .hero-img {
+      margin-top: 1rem;
+      width: 120px;
+    }
+
+    .input-group {
+      margin: 2rem auto;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .add-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .sortear-btn {
+      background-color: orange;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    li {
+      font-size: 1rem;
+      margin: 0.3rem 0;
+    }
+
+    #resultado {
+      margin-top: 2rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <img src="assets/gift-illustration.png" alt="Regalo" class="hero-img" />
+  <header>
     <h1>Amigo Secreto</h1>
+    <img src="assets/gift-illustration.png" alt="Regalo" class="hero-img" />
   </header>
 
-  <main class="container">
-    <label for="nombre">Digite el nombre de sus amigos</label>
-    <input type="text" id="nombre" placeholder="Escribe un nombre" />
-    <button class="button-add">Añadir</button>
+  <div class="input-group">
+    <input type="text" id="nombre" placeholder="Digite el nombre de sus amigos" />
+    <button class="add-btn" onclick="agregarNombre()">Añadir</button>
+  </div>
 
-    <ul id="name-list"></ul>
+  <ul id="lista"></ul>
 
-    <button class="button-draw">
-      Sortear amigo
-    </button>
+  <button class="sortear-btn" onclick="sortearAmigo()">Sortear amigo</button>
 
-    <div id="result" class="result-list"></div>
-  </main>
+  <div id="resultado"></div>
 
-  <script src="script.js"></script>
+  <script>
+    const nombres = [];
+
+    function agregarNombre() {
+      const input = document.getElementById("nombre");
+      const nombre = input.value.trim();
+      if (nombre) {
+        nombres.push(nombre);
+        actualizarLista();
+        input.value = "";
+      }
+    }
+
+    function actualizarLista() {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      nombres.forEach(n => {
+        const li = document.createElement("li");
+        li.textContent = n;
+        lista.appendChild(li);
+      });
+    }
+
+    function sortearAmigo() {
+      if (nombres.length < 2) {
+        document.getElementById("resultado").textContent = "Agrega al menos dos nombres.";
+        return;
+      }
+
+      const copia = [...nombres];
+      const asignaciones = {};
+
+      for (let nombre of nombres) {
+        let posibles = copia.filter(n => n !== nombre);
+        if (posibles.length === 0) {
+          document.getElementById("resultado").textContent = "No se puede sortear sin repeticiones.";
+          return;
+        }
+        let elegido = posibles[Math.floor(Math.random() * posibles.length)];
+        asignaciones[nombre] = elegido;
+        copia.splice(copia.indexOf(elegido), 1);
+      }
+
+      let resultado = "🎁 Resultados del sorteo:\n";
+      for (let [a, b] of Object.entries(asignaciones)) {
+        resultado += ${a} → ${b}\n;
+      }
+      document.getElementById("resultado").textContent = resultado;
+    }
+  </script>
 </body>
 </html>
