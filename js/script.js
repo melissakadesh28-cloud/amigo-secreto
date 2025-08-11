@@ -1,50 +1,45 @@
-let nombres = [];
+/ Lista de nombres
+const nombres = [];
 
-function agregarNombre() {
-  const input = document.getElementById("nombre");
-  const nombre = input.value.trim();
-  if (nombre && !nombres.includes(nombre)) {
-    nombres.push(nombre);
-    mostrarNombres();
-    input.value = "";
-  }
-}
+// Elementos del DOM
+const listaNombres = document.getElementById("name-list");
+const resultado = document.getElementById("result");
+const botonAgregar = document.querySelector(".button-add");
+const botonSortear = document.querySelector(".button-draw");
 
-function mostrarNombres() {
-  const lista = document.getElementById("listaNombres");
-  lista.innerHTML = "";
-  nombres.forEach(n => {
-    const li = document.createElement("li");
-    li.textContent = n;
-    lista.appendChild(li);
-  });
-}
+// Función para agregar nombre
+botonAgregar.addEventListener("click", () => {
+  const nombre = prompt("Ingresa un nombre:");
 
-function realizarSorteo() {
-  if (nombres.length < 2) {
-    alert("Agrega al menos dos nombres.");
+  if (!nombre || nombre.trim() === "") {
+    alert("El nombre no puede estar vacío.");
     return;
   }
 
-  let copia = [...nombres];
-  let resultado = [];
+  const nombreLimpio = nombre.trim();
 
-  nombres.forEach(nombre => {
-    let posibles = copia.filter(n => n !== nombre);
-    if (posibles.length === 0) {
-      alert("No se puede realizar el sorteo sin repetir.");
-      return;
-    }
-    let elegido = posibles[Math.floor(Math.random() * posibles.length)];
-    resultado.push(${nombre} → ${elegido});
-    copia = copia.filter(n => n !== elegido);
-  });
+  if (nombres.includes(nombreLimpio)) {
+    alert("Ese nombre ya fue agregado.");
+    return;
+  }
 
-  const listaResultado = document.getElementById("resultadoSorteo");
-  listaResultado.innerHTML = "";
-  resultado.forEach(r => {
-    const li = document.createElement("li");
-    li.textContent = r;
-    listaResultado.appendChild(li);
-  });
-}
+  nombres.push(nombreLimpio);
+
+  const nuevoItem = document.createElement("li");
+  nuevoItem.textContent = nombreLimpio;
+  listaNombres.appendChild(nuevoItem);
+});
+
+// Función para realizar el sorteo
+botonSortear.addEventListener("click", () => {
+  if (nombres.length === 0) {
+    resultado.textContent = "⚠️ No hay nombres para sortear.";
+    return;
+  }
+
+  const indiceAleatorio = Math.floor(Math.random() * nombres.length);
+  const nombreSorteado = nombres[indiceAleatorio];
+
+  resultado.textContent = 🎉 Tu amigo secreto es: ${nombreSorteado};
+});
+
