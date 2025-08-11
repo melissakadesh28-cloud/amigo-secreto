@@ -10,6 +10,10 @@ body {
   color: white;
   text-align: center;
   padding: 2rem;
+  background-image: url("../assets/amigo-secreto.png"); /* Ruta relativa */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120px;
 }
 
 .hero-img {
