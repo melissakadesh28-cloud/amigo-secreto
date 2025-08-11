@@ -1,4 +1,4 @@
-/ Lista de nombres
+// Lista de nombres
 const nombres = [];
 
 // Elementos del DOM
