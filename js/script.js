@@ -1,36 +1,33 @@
-// Lista de nombres
 const nombres = [];
 
-// Elementos del DOM
 const listaNombres = document.getElementById("name-list");
 const resultado = document.getElementById("result");
 const botonAgregar = document.querySelector(".button-add");
 const botonSortear = document.querySelector(".button-draw");
+const inputNombre = document.getElementById("nombre");
 
-// Función para agregar nombre
 botonAgregar.addEventListener("click", () => {
-  const nombre = prompt("Ingresa un nombre:");
+  const nombre = inputNombre.value.trim();
 
-  if (!nombre || nombre.trim() === "") {
+  if (!nombre) {
     alert("El nombre no puede estar vacío.");
     return;
   }
 
-  const nombreLimpio = nombre.trim();
-
-  if (nombres.includes(nombreLimpio)) {
+  if (nombres.includes(nombre)) {
     alert("Ese nombre ya fue agregado.");
     return;
   }
 
-  nombres.push(nombreLimpio);
+  nombres.push(nombre);
 
   const nuevoItem = document.createElement("li");
-  nuevoItem.textContent = nombreLimpio;
+  nuevoItem.textContent = nombre;
   listaNombres.appendChild(nuevoItem);
+
+  inputNombre.value = "";
 });
 
-// Función para realizar el sorteo
 botonSortear.addEventListener("click", () => {
   if (nombres.length === 0) {
     resultado.textContent = "⚠️ No hay nombres para sortear.";
@@ -42,4 +39,3 @@ botonSortear.addEventListener("click", () => {
 
   resultado.textContent = 🎉 Tu amigo secreto es: ${nombreSorteado};
 });
-
